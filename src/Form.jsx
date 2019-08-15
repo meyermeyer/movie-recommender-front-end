@@ -11,11 +11,12 @@ class Form extends Component {
         this.props.dispatch({ type: 'FETCH_MOVIE_LIST' })
     }
 
+
     render(){
         return(
             <>
                 <h3>Enter a movie title to see recommendations</h3>
-                <Downshift store={this.props.reduxState.movieList}/>
+                <Downshift store={this.props.reduxState.movieList} dispatch={this.props.dispatch}/>
             </>
         )
     }

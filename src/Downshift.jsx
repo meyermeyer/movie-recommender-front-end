@@ -6,12 +6,10 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
+import { connect } from 'react-redux';
 
-function handleSubmit(event, selectedItem){
-    event.preventDefault()
-    console.log('in handleSubmit', selectedItem);
 
-}
+
 
 function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
@@ -109,6 +107,11 @@ const styles = theme => ({
 
 function IntegrationDownshift(props) {
     const { classes } = props;
+    function handleSubmit(event, selectedItem) {
+        event.preventDefault()
+        console.log('in handleSubmit', selectedItem);
+        props.dispatch({ type: 'FETCH_RECOMMENDATIONS', payload: selectedItem })
+    }
 
     return (
         <div className={classes.root}>
@@ -126,7 +129,7 @@ function IntegrationDownshift(props) {
                         <form onSubmit={(event)=>handleSubmit(event, selectedItem)}>
                             <div className={classes.container}>
                                 {renderInput({
-                                    fullWidth: true,
+                                    // fullWidth: true,
                                     classes,
                                     InputProps: getInputProps({
                                         placeholder: 'Movie Title',
@@ -150,7 +153,6 @@ function IntegrationDownshift(props) {
                                 </div>
                             </div>
                         </form>
-                        
                     )}
             </Downshift>
         </div>
@@ -161,4 +163,5 @@ IntegrationDownshift.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(IntegrationDownshift);
+// export default connect()(withStyles(styles)(IntegrationDownshift));
+export default (withStyles(styles)(IntegrationDownshift));

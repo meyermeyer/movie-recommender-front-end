@@ -2,16 +2,29 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 
 class Recommendation extends Component {
-
+    componentDidMount(){
+        
+    }
     
 
         
     
     render() {
         return (
-            <p>recommendations here</p>
+            <ul>
+                {this.props.reduxState.recommendations.recommendations && Object.keys(this.props.reduxState.recommendations.recommendations).map(recommendation=>(
+                    <li>
+                        {recommendation}
+                    </li>
+                ))}
+            </ul>
+            // <p>recommendations</p>
         )
     }
 }
 
-export default connect()(Recommendation)
+const mapStateToProps = reduxState => ({
+    reduxState
+});
+
+export default connect(mapStateToProps)(Recommendation)
