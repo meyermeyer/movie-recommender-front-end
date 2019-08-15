@@ -10,16 +10,27 @@ class Recommendation extends Component {
         
     
     render() {
-        return (
-            <ul>
-                {this.props.reduxState.recommendations.recommendations && Object.keys(this.props.reduxState.recommendations.recommendations).map(recommendation=>(
-                    <li key={recommendation}>
-                        {recommendation}
-                    </li>
-                ))}
-            </ul>
-            // <p>recommendations</p>
-        )
+        if (this.props.reduxState.recommendations.recommendations === 'none'){
+            return (
+                <p>Looks like we don't have enough data yet to make a recommendation for that film.  Try other title!</p>
+            )
+        }
+        else {
+            return (
+
+                <ul>
+                    {this.props.reduxState.recommendations.recommendations &&
+                        Object.keys(this.props.reduxState.recommendations.recommendations).map(recommendation => (
+                            <li key={recommendation}>
+                                {recommendation}
+                            </li>
+
+                        ))
+                    }
+                </ul>
+            )
+        }
+        
     }
 }
 
