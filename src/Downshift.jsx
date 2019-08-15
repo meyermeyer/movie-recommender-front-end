@@ -26,8 +26,9 @@ function renderInput(inputProps) {
     );
 }
 
-function renderSuggestion({ suggestion, index, itemProps, highlightedIndex, selectedItem }) {
-    console.log('suggestion', suggestion)
+function renderSuggestion(suggestionProps) {
+    const { suggestion, index, itemProps, highlightedIndex, selectedItem } = suggestionProps;
+    console.log('suggestion', suggestion, itemProps)
     const isHighlighted = highlightedIndex === index;
     const isSelected = (selectedItem || '').indexOf(suggestion) > -1;
 
@@ -129,7 +130,7 @@ function IntegrationDownshift(props) {
                             <div {...getMenuProps()}>
                                 {isOpen ? (
                                     <Paper className={classes.paper} square>
-                                        {getSuggestions(inputValue, props.store.movie_titles).map((suggestion, index) => {
+                                        {getSuggestions(inputValue, props.store.movie_titles).map((suggestion, index) => 
                                             // console.log('suggestion', suggestion);
                                             renderSuggestion({
                                                 suggestion,
@@ -137,7 +138,7 @@ function IntegrationDownshift(props) {
                                                 itemProps: getItemProps({ item: suggestion }),
                                                 highlightedIndex,
                                                 selectedItem,
-                                            })}
+                                            })
                                         )}
                                     </Paper>
                                 ) : null}
