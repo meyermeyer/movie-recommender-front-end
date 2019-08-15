@@ -7,6 +7,11 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 
+function handleSubmit(event, selectedItem){
+    event.preventDefault()
+    console.log('in handleSubmit', selectedItem);
+
+}
 
 function renderInput(inputProps) {
     const { InputProps, classes, ref, ...other } = inputProps;
@@ -22,13 +27,12 @@ function renderInput(inputProps) {
                 ...InputProps,
             }}
             {...other}
-        />
+        />  
     );
 }
 
 function renderSuggestion(suggestionProps) {
     const { suggestion, index, itemProps, highlightedIndex, selectedItem } = suggestionProps;
-    console.log('suggestion', suggestion, itemProps)
     const isHighlighted = highlightedIndex === index;
     const isSelected = (selectedItem || '').indexOf(suggestion) > -1;
 
@@ -84,12 +88,12 @@ const styles = theme => ({
     paper: {
         position: 'absolute',
         zIndex: 1,
-        marginTop: theme.spacing.unit,
+        marginTop: theme.spacing(1),
         left: 0,
         right: 0,
     },
     chip: {
-        margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
+        margin: `${theme.spacing(.5)}px ${theme.spacing(.25)}px`,
     },
     inputRoot: {
         flexWrap: 'wrap',
@@ -99,16 +103,16 @@ const styles = theme => ({
         flexGrow: 1,
     },
     divider: {
-        height: theme.spacing.unit * 2,
+        height: theme.spacing(2),
     },
 });
 
 function IntegrationDownshift(props) {
-    // console.log('props', props.store.movie_titles)
     const { classes } = props;
 
     return (
         <div className={classes.root}>
+            
             <Downshift id="downshift-simple">
                 {({
                     getInputProps,
@@ -119,31 +123,34 @@ function IntegrationDownshift(props) {
                     isOpen,
                     selectedItem,
                 }) => (
-                        <div className={classes.container}>
-                            {renderInput({
-                                fullWidth: true,
-                                classes,
-                                InputProps: getInputProps({
-                                    placeholder: 'Search a country (start with a)',
-                                }),
-                            })}
-                            <div {...getMenuProps()}>
-                                {isOpen ? (
-                                    <Paper className={classes.paper} square>
-                                        {getSuggestions(inputValue, props.store.movie_titles).map((suggestion, index) => 
-                                            // console.log('suggestion', suggestion);
-                                            renderSuggestion({
-                                                suggestion,
-                                                index,
-                                                itemProps: getItemProps({ item: suggestion }),
-                                                highlightedIndex,
-                                                selectedItem,
-                                            })
-                                        )}
-                                    </Paper>
-                                ) : null}
+                        <form onSubmit={(event)=>handleSubmit(event, selectedItem)}>
+                            <div className={classes.container}>
+                                {renderInput({
+                                    fullWidth: true,
+                                    classes,
+                                    InputProps: getInputProps({
+                                        placeholder: 'Movie Title',
+                                    }),
+                                })}
+                                <div {...getMenuProps()}>
+                                    {isOpen ? (
+                                        <Paper className={classes.paper} square>
+                                            {getSuggestions(inputValue, props.store.movie_titles).map((suggestion, index) =>
+                                                // console.log('suggestion', suggestion);
+                                                renderSuggestion({
+                                                    suggestion,
+                                                    index,
+                                                    itemProps: getItemProps({ item: suggestion }),
+                                                    highlightedIndex,
+                                                    selectedItem,
+                                                })
+                                            )}
+                                        </Paper>
+                                    ) : null}
+                                </div>
                             </div>
-                        </div>
+                        </form>
+                        
                     )}
             </Downshift>
         </div>

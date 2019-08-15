@@ -14,7 +14,7 @@ class Form extends Component {
     render(){
         return(
             <>
-                <p>form here</p>
+                <h3>Enter a movie title to see recommendations</h3>
                 <Downshift store={this.props.reduxState.movieList}/>
             </>
         )
