@@ -13,7 +13,7 @@ class Recommendation extends Component {
         return (
             <ul>
                 {this.props.reduxState.recommendations.recommendations && Object.keys(this.props.reduxState.recommendations.recommendations).map(recommendation=>(
-                    <li>
+                    <li key={recommendation}>
                         {recommendation}
                     </li>
                 ))}
