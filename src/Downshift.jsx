@@ -16,6 +16,7 @@ function renderInput(inputProps) {
 
     return (
         <TextField
+            className={classes.form}
             InputProps={{
                 inputRef: ref,
                 classes: {
@@ -103,6 +104,9 @@ const styles = theme => ({
     divider: {
         height: theme.spacing(2),
     },
+    form: {
+        width: '80%'
+    }
 });
 
 function IntegrationDownshift(props) {
@@ -126,7 +130,10 @@ function IntegrationDownshift(props) {
                     isOpen,
                     selectedItem,
                 }) => (
-                        <form onSubmit={(event)=>handleSubmit(event, selectedItem)}>
+                        <form 
+                            onSubmit={(event)=>handleSubmit(event, selectedItem)}
+                            
+                        >
                             <div className={classes.container}>
                                 {renderInput({
                                     // fullWidth: true,
