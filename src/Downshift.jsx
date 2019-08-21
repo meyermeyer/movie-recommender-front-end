@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import deburr from 'lodash/deburr';
 import Downshift from 'downshift';
+import {Button} from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
@@ -111,10 +112,17 @@ const styles = theme => ({
 
 function IntegrationDownshift(props) {
     const { classes } = props;
+
     function handleSubmit(event, selectedItem) {
         event.preventDefault()
         console.log('in handleSubmit', selectedItem);
         props.dispatch({ type: 'FETCH_RECOMMENDATIONS', payload: selectedItem })
+    }
+
+    function handleSvdSubmit(selectedItem) {
+        console.log('in handleSvdSubmit', selectedItem);
+        props.dispatch({type: 'FETCH_SVD_RECOMMENDATIONS', payload: selectedItem})
+        
     }
 
     return (
@@ -159,6 +167,8 @@ function IntegrationDownshift(props) {
                                     ) : null}
                                 </div>
                             </div>
+                            <Button variant="contained" color="secondary" type="submit">Pairwise Correlation</Button>
+                            <Button variant="contained" color="secondary" type="button" onClick={()=>handleSvdSubmit(selectedItem)}>SVD</Button>
                         </form>
                     )}
             </Downshift>
