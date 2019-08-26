@@ -14,12 +14,18 @@ function* fetchRecommendations(action) {
     yield put({type: 'STORE_RECOMMENDATIONS', payload: recommendationList.data})
 }
 
+function* fetchNmfRecommendations(action) {
+    console.log('in fetchNmfRecommendations saga');
+    const nmfRecommendationList = yield axios.get(`/movies/recommendations/NMF/${action.payload.toString()}`)
+    console.log('nmf', nmfRecommendationList.data);
+    yield put({type: 'STORE_NMF_RECOMMENDATIONS', payload: nmfRecommendationList.data})
+}
+
 function* fetchSvdRecommendations(action) {
     console.log('in fetchSvdRecommendations', action.payload);
     const svdRecommendationList = yield axios.get(`/movies/recommendations/SVD/${action.payload.toString()}`)
     console.log('SVD',svdRecommendationList)
-    yield put({type: 'STORE_SVD_RECOMMENDATIONS', payload: svdRecommendationList.data})
-    
+    yield put({type: 'STORE_SVD_RECOMMENDATIONS', payload: svdRecommendationList.data})  
 }
 
 
@@ -27,6 +33,7 @@ function* movieSaga() {
     yield takeEvery('FETCH_MOVIE_LIST', fetchMovieList)
     yield takeEvery('FETCH_RECOMMENDATIONS', fetchRecommendations)
     yield takeEvery('FETCH_SVD_RECOMMENDATIONS', fetchSvdRecommendations)
+    yield takeEvery('FETCH_NMF_RECOMMENDATIONS', fetchNmfRecommendations)
 }
 
 export default movieSaga;

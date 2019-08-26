@@ -119,6 +119,11 @@ function IntegrationDownshift(props) {
         props.dispatch({ type: 'FETCH_RECOMMENDATIONS', payload: selectedItem })
     }
 
+    function handleNmfSubmit(selectedItem) {
+        console.log('in handleNmfSubmit', selectedItem)
+        props.dispatch({type: 'FETCH_NMF_RECOMMENDATIONS', payload: selectedItem})
+    }
+    
     function handleSvdSubmit(selectedItem) {
         console.log('in handleSvdSubmit', selectedItem);
         props.dispatch({type: 'FETCH_SVD_RECOMMENDATIONS', payload: selectedItem})
@@ -169,6 +174,7 @@ function IntegrationDownshift(props) {
                             </div>
                             <Button variant="contained" color="secondary" type="submit">Pairwise Correlation</Button>
                             <Button variant="contained" color="secondary" type="button" onClick={()=>handleSvdSubmit(selectedItem)}>SVD</Button>
+                            <Button variant="contained" color="secondary" type="button" onClick={() => handleNmfSubmit(selectedItem)}>NMF</Button>                    
                         </form>
                     )}
             </Downshift>

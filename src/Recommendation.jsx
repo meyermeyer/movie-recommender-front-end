@@ -6,9 +6,7 @@ class Recommendation extends Component {
     componentDidMount(){
         
     }
-    
 
-        
     
     render() {
 
@@ -21,7 +19,7 @@ class Recommendation extends Component {
             return (
                 <Grid container>
                     <Grid item xs={3}>
-                        <ul>
+                        <ol>
                             {this.props.reduxState.recommendations.recommendations &&
                                 Object.keys(this.props.reduxState.recommendations.recommendations).map(recommendation => ( 
                                     <li key={recommendation}>
@@ -29,21 +27,33 @@ class Recommendation extends Component {
                                     </li>
                                 ))
                             }
-                        </ul>
+                        </ol>
                     </Grid>
                     <Grid item xs={3}>
-                        <ul>
+                        <ol>
                             {this.props.reduxState.svdRecommendations.recommendations && 
                                 Object.values(this.props.reduxState.svdRecommendations['recommendations']).map(recommendation => {
                                     console.log('map recommendations', recommendation);
                                     return(
-                                        <li key={recommendation}>
+                                        <li key={recommendation.movieId}>
                                             {recommendation.title}
                                         </li>
                                     )
                                     
                                 })} 
-                        </ul>
+                        </ol>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <ol>
+                            {this.props.reduxState.nmfRecommendations.recommendations &&
+                                Object.values(this.props.reduxState.nmfRecommendations['recommendations']).map(recommendation => {
+                                    return (
+                                        <li key={recommendation.movieId}>
+                                            {recommendation.title}
+                                        </li>
+                                    )
+                                })}
+                        </ol>
                     </Grid>
                 </Grid>
                 
